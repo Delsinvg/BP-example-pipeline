@@ -62,12 +62,16 @@ jobs:
               # Return Base64 to convert to an image
           image: false
           
-          name: A job to check page speed insights
-          
-      - name: Running Page Speed Insights
+      - name: Desktop Speed Insights
         uses: jakepartusch/psi-action@v1.1
-        id: psi
+        with:
+          url: ${{env.site}}
+          threshold: 70
+          strategy: desktop
+          
+      - name: Desktop Speed Insights
+        uses: jakepartusch/psi-action@v1.1
         with:
           url: ${{env.site}}
           threshold: 60
-          strategy: desktop
+          strategy: mobile
