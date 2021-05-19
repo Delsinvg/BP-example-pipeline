@@ -29,8 +29,6 @@ jobs:
       - name: Build assets
         run: npm ci && npm run production
 
-    steps:
-      - uses: actions/checkout@v2
       - name: Deploy to Heroku
         uses: behe/heroku-build@v1
         with:
