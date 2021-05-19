@@ -30,7 +30,7 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     env:
-      site: 'https://codedor.be'
+      site: 'https://demo-bp-delsinvg.herokuapp.com/'
     steps:
       - name: Check page title & description
         uses: Delsinvg/check-page-title-and-description-action@1.0
