@@ -90,5 +90,5 @@ jobs:
         uses: jakepartusch/psi-action@v1.1
         with:
           url: ${{env.site}}
-          threshold: 40
+          threshold: 70
           strategy: mobile
