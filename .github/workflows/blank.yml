@@ -19,9 +19,12 @@ jobs:
     steps:
       - name: Check page title & description
         uses: Delsinvg/check-page-title-and-description-action@1.0
+        id: check
         with:
           # url of the site to check
           site: ${{env.site}}
+      - name: Get the title and description
+        run: echo "The title is ${{ steps.check.outputs.title }} & the description is ${{ steps.check.outputs.description }}"
       
       - name: Run a multi-line script
         run: |
