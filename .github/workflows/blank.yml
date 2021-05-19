@@ -34,8 +34,32 @@ jobs:
           site: ${{env.site}}
       - name: Get the hreflang url
         run: echo "The website is available on ${{ steps.check2.outputs.hreflang }}"
-      
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+        
+      - name: Check favicon
+        uses: Delsinvg/check-favicon-action@1.0
+        id: check3
+        with:
+          # url of the site to check
+          site: ${{env.site}}
+      - name: Get the favicon url
+        run: echo "The favicon is available on ${{ steps.check3.outputs.favicon }}"
+        
+      - name: Check Robots.txt
+        uses: Delsinvg/check-robots.txt-action@1.0
+        id: check4
+        with:
+          # url of the site to check
+          site: ${{env.site}}
+      - name: Get the url of the robotstxt
+        run: echo "This is the robots.txt ${{ steps.check4.outputs.robots }}"
+        
+      - name: Check mobile user-friendliness
+        uses: Delsinvg/check-mobile-friendly-action@1.0
+        id: check5
+        with:
+              # url of the site to check
+          site: ${{env.site}}/
+              # The Google API key
+          key: ${{ secrets.MOBILE_FRIENDLY_API_KEY}}
+              # Return Base64 to convert to an image
+          image: false        
