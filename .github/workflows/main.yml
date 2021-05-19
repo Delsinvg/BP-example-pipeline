@@ -1,0 +1,105 @@
+name: example-pipeline
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push events but only for the main branch
+  push:
+    branches: [ main ]
+
+jobs:
+  build-and-depoy:
+    runs-on: ubuntu-latest
+    env:
+      DEPLOYMENT_ENVIRONMENT: staging
+      PHP_VERSION: '7.4'
+    steps:
+      - name: Setup PHP with PECL extension
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ env.PHP_VERSION }}
+
+      - uses: actions/checkout@v2
+
+      - name: Validate composer.json and composer.lock
+        run: composer validate --strict  
+      
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress --no-suggest
+
+      - name: Build assets
+        run: npm ci && npm run production
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Deploy to Heroku
+        uses: behe/heroku-build@v1
+        with:
+          app-name: "demo-bp-delsinvg"
+          api-key: "${{secrets.HEROKU_API_KEY}}"
+  
+  automated-checklist:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    env:
+      site: 'https://codedor.be'
+    steps:
+      - name: Check page title & description
+        uses: Delsinvg/check-page-title-and-description-action@1.0
+        id: check1
+        with:
+          # url of the site to check
+          site: ${{env.site}}
+      - name: Get the title and description
+        run: echo "The title is ${{ steps.check1.outputs.title }} & the description is ${{ steps.check1.outputs.description }}"
+        
+      - name: Check hreflang tag
+        uses: Delsinvg/check-hreflang-action@1.0
+        id: check2
+        with:
+          # url of the site to check
+          site: ${{env.site}}
+      - name: Get the hreflang url
+        run: echo "The website is available on ${{ steps.check2.outputs.hreflang }}"
+        
+      - name: Check favicon
+        uses: Delsinvg/check-favicon-action@1.0
+        id: check3
+        with:
+          # url of the site to check
+          site: ${{env.site}}
+      - name: Get the favicon url
+        run: echo "The favicon is available on ${{ steps.check3.outputs.favicon }}"
+        
+      - name: Check Robots.txt
+        uses: Delsinvg/check-robots.txt-action@1.0
+        id: check4
+        with:
+          # url of the site to check
+          site: ${{env.site}}
+      - name: Get the url of the robotstxt
+        run: echo "This is the robots.txt ${{ steps.check4.outputs.robots }}"
+        
+      - name: Check mobile user-friendliness
+        uses: Delsinvg/check-mobile-friendly-action@1.0
+        id: check5
+        with:
+              # url of the site to check
+          site: ${{env.site}}
+              # The Google API key
+          key: ${{ secrets.MOBILE_FRIENDLY_API_KEY}}
+              # Return Base64 to convert to an image
+          image: false
+          
+      - name: Desktop Speed Insights
+        uses: jakepartusch/psi-action@v1.1
+        with:
+          url: ${{env.site}}
+          threshold: 70
+          strategy: desktop
+          
+      - name: Mobile Speed Insights
+        uses: jakepartusch/psi-action@v1.1
+        with:
+          url: ${{env.site}}
+          threshold: 60
+          strategy: mobile
