@@ -69,7 +69,7 @@ jobs:
           threshold: 70
           strategy: desktop
           
-      - name: Desktop Speed Insights
+      - name: Mobile Speed Insights
         uses: jakepartusch/psi-action@v1.1
         with:
           url: ${{env.site}}
