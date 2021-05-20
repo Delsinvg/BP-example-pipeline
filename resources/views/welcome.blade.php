@@ -6,7 +6,7 @@
 
         <title>Demo bachelorproef</title>
         <meta name="description" content="Dit is een test omschrijving">
-        <link rel="alternate" href="https://demo-bp-delsinvg.herokuapp.com/nl" hreflang="nl">
+        <link rel="alternate" href="https://demo-bp-delsinvg.herokuapp.com" hreflang="nl">
         <link rel="icon" href="https://codedor.be/favicon.ico" type="image/x-icon">
 
         <!-- Fonts -->

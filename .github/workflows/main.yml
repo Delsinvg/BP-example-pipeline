@@ -7,11 +7,11 @@ on:
     branches: [ main ]
 
 jobs:
-  build-and-depoy:
+  build-and-deploy:
     runs-on: ubuntu-latest
     env:
-      DEPLOYMENT_ENVIRONMENT: staging
       PHP_VERSION: '7.4'
+      
     steps:
       - name: Setup PHP with PECL extension
         uses: shivammathur/setup-php@v2
