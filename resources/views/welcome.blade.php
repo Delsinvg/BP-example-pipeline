@@ -8,7 +8,7 @@
     <title>Demo bachelorproef</title>
     <meta name="description" content="Dit is een test omschrijving">
     <link rel="alternate" href="https://demo-bp-delsinvg.herokuapp.com" hreflang="nl">
-    <link rel="icon" href="https://codedor.be/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="{{ asset('icon.svg')}}" type="image/x-icon">
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
